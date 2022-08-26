@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v5.15.4/css/all.css">
 
+    <title>Github Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+</head>
+<body>
+  <br>
+  <form method="post" action="/">
+<div class="control ml-12">
+  <input class="input is-focused w-64" name="name" type="text" placeholder="Enter Your Github Name">
+  <button type="submit" class="button is-info w-32">Search</button>
+</div>
+  </form>
+    {% if user %}
+    <div class="card ml-24 mt-20" style="width: 18rem;">
+  <img src="{{ user.avatar_url }}" class="card-img-top">
+  <div class="card-body">
+    <h1 class="card-text ml-12">Username:<strong>{{ user.name }}</strong></h1>
+    <p class="card-text"><strong>Toplam Repos: </strong>{{ user.public_repos }}</p>
+    <p class="card-text"><strong>Bio </strong>{{ user.bio }}</p>
+    <p class="card-text"><strong>Takipçi: </strong>{{ user.followers }}</p>
+    <p class="card-text"><strong>Takip: </strong>{{ user.following }}</p>
+    <a href="{{ user.html_url }}" target="_blank" class="ml-20 btn btn-danger">{{ user.name }}</a>
+  </div>
+    </div>
+  <br>
+      <h1 class="ml-24 text-warning text-xl">Son Repolar</h1>
+     {% for repo in repos %}
+   <div class="card m-t repos">
+ <div class="card-body">
+   <a class="text-dark" href="{{ repos.html_url }}"><h4>{{ repo.full_name }}</h4></a>
+     <i class="text-warning fas fa-star"></i> <label style="margin-right:10px;">{{ repo.stargazers_count }}</label> <i class="fal fa-eye text-muted"> </i> {{ repo.watchers_count }} <br>
+  {{ repo.language }}
+  </div>  
+    </div>
+
+     {% endfor %}
+     {% endif %}
+</body>
+<style>
+  .body{
+    background-color:BLACK
+  }
+.repos{
+transition:all 0.5s;
+}
+.repos:hover{
+  width:100%;
+  padding:10px;
+  box-shadow:1px 1px 10px #aaaaaa;
+  }
+  </style>
+</html>
